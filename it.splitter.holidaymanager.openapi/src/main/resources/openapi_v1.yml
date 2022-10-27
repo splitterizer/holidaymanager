@@ -1,0 +1,60 @@
+openapi: 3.0.3
+info:
+  title: Splitter - OpenAPI 3.0
+  termsOfService: http://swagger.io/terms/
+  version: 0.0.1
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+tags:
+  - name: holiday
+    description: holiday management
+  - name: person
+    description: person management
+  - name: payments
+    description: payment managment
+paths:
+  /holiday:
+    post:
+      tags:
+        - holiday
+      summary: create a new holiday
+      operationId: createHoliday
+      parameters:
+        - name: name
+          in: query
+          description: holiday name
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: Holiday already exists
+        '505':
+          description: Internal server error
+
+components:
+  schemas:
+    GenericResponse:
+      properties:
+        resource_id:
+          type: string
+          description: UUIDv3
+        default_messagge:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+        other:
+          type: object
