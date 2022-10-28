@@ -1,8 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>it.splitter.holidaymanager.storage</groupId>
-  <artifactId>it-splitter-holidaymanager-storage</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>storage</name>
-  <description>Only  for crud operation</description>
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>it.splitter.holidaymanager</groupId>
+		<artifactId>it-splitter-holidaymanager</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>it-splitter-holidaymanager-storage</artifactId>
+	<name>storage</name>
+	<description>Only  for crud operation</description>
 </project>

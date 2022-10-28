@@ -5,7 +5,6 @@
 		<artifactId>it-splitter-holidaymanager</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>it.splitter.holidaymanager.datamodel</groupId>
 	<artifactId>it-splitter-holidaymanager-datamodel</artifactId>
 	<name>datamodel</name>
 	<description>Entity model</description>

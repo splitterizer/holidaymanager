@@ -5,7 +5,6 @@
 		<artifactId>it-splitter-holidaymanager</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>it.splitter.holidaymanager.openapi</groupId>
 	<artifactId>it-splitter-holidaymanager-openapi</artifactId>
 	<name>openapi</name>
 	<description>contains the yaml of the swagger. This is then used for generating the java interfaces used by the presentation module</description>

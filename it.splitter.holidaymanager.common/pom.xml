@@ -5,7 +5,6 @@
 		<artifactId>it-splitter-holidaymanager</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>it.splitter.holidaymanager.common</groupId>
 	<artifactId>it-splitter-holidaymanager-common</artifactId>
 	<name>common</name>
 	<description>common properties to all modules</description>
