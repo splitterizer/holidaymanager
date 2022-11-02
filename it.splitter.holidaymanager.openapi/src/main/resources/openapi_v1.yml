@@ -14,7 +14,47 @@ tags:
   - name: payments
     description: payment managment
 paths:
-  /holiday:
+  /v1/holiday:
+    get:
+      tags:
+        - holiday
+      summary: get holiday by name
+      operationId: getHoliday
+      parameters:
+        - name: name
+          in: query
+          description: holiday name
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '404':
+          description: Holiday not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+        '505':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
     post:
       tags:
         - holiday
@@ -39,9 +79,378 @@ paths:
                 $ref: '#/components/schemas/GenericResponse'
         '400':
           description: Holiday already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
         '505':
           description: Internal server error
-
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+  /v1/holiday/{holiday_id}:
+    get:
+      tags:
+        - holiday
+      summary: get holiday
+      operationId: getHolidayById
+      parameters:
+        - name: holiday_id
+          in: path
+          description: holiday id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '404':
+          description: Holiday not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+        '505':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+  /v1/holiday/{holiday_id}/person:
+    post:
+      tags:
+        - person
+      summary: add a new person to holiday
+      operationId: addPerson
+      parameters:
+        - name: holiday_id
+          in: path
+          schema:
+            type: string
+          required: true
+          description: the UUIDv3 of the holiday
+      requestBody:
+        description: person details
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonDetails'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/PersonDetails'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: Person already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+        '404':
+          description: Vacation not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+        '505':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+  /v1/holiday/{holiday_id}/person/{person_id}:
+    get:
+      tags:
+        - person
+      summary: get a person by resource_id
+      operationId: getPerson
+      parameters:
+        - name: holiday_id
+          in: path
+          schema:
+            type: string
+          required: true
+          description: the UUIDv3 of the holiday
+        - name: person_id
+          in: path
+          schema:
+            type: string
+          required: true
+          description: the UUIDv3 of the person
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: Person already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+        '404':
+          description: Vacation not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+        '505':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+    delete:
+      tags:
+        - person
+      summary: add a new person to holiday
+      operationId: removePerson
+      parameters:
+        - name: holiday_id
+          in: path
+          schema:
+            type: string
+          required: true
+          description: the UUIDv3 of the holiday
+        - name: person_id
+          in: path
+          schema:
+            type: string
+          required: true
+          description: the UUIDv3 of the person
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '404':
+          description: Vacation or person not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+        '505':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+  /v1/holiday/{holiday_id}/payments:
+    post:
+      tags:
+        - payments
+      summary: add a new payment to holiday
+      operationId: addPayment
+      parameters:
+        - name: holiday_id
+          in: path
+          schema:
+            type: string
+          required: true
+          description: the UUIDv3 of the holiday
+      requestBody:
+        description: payment details
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentDetails'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/PaymentDetails'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: Person already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+        '404':
+          description: Vacation or person not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+        '505':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+  /v1/holiday/{holiday_id}/payments/{payment_id}:
+    get:
+      tags:
+        - payments
+      summary: get payment from holiday
+      operationId: getPayment
+      parameters:
+        - name: holiday_id
+          in: path
+          schema:
+            type: string
+          required: true
+          description: the UUIDv3 of the holiday
+        - name: payment_id
+          in: path
+          schema:
+            type: string
+          required: true
+          description: the UUIDv3 of the payment
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '404':
+          description: Vacation or payment not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+        '505':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+    delete:
+      tags:
+        - payments
+      summary: remove a payment from holiday
+      operationId: removePayment
+      parameters:
+        - name: holiday_id
+          in: path
+          schema:
+            type: string
+          required: true
+          description: the UUIDv3 of the holiday
+        - name: payment_id
+          in: path
+          schema:
+            type: string
+          required: true
+          description: the UUIDv3 of the payment
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '404':
+          description: Vacation or payment not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+        '505':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
 components:
   schemas:
     GenericResponse:
@@ -58,3 +467,34 @@ components:
               type: string
         other:
           type: object
+    GenericErrorResponse:
+      properties:
+        default_message:
+          $ref: '#/components/schemas/GenericErrorMessage'
+    GenericErrorMessage:
+      properties:
+        code:
+          type: string
+          description: error code
+        message:
+          type: string
+          description: error descriptive message
+    PersonDetails:
+      properties:
+        name:
+          type: string
+          description: person name
+        surname:
+          type: string
+          description: person surname
+    PaymentDetails:
+      properties:
+        person:
+          type: string
+          description: UUIDv3 of person
+        price: 
+          type: number
+        description:
+          type: string
+          description: payment description
+          
