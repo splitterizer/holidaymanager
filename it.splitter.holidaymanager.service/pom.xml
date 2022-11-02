@@ -8,4 +8,14 @@
 	<artifactId>it-splitter-holidaymanager-service</artifactId>
 	<name>service</name>
 	<description>service for manage data before saving to a storage</description>
+	
+	<dependencies>
+		<!-- Internal dependencies-->
+		<dependency>
+			<groupId>it.splitter.holidaymanager</groupId>
+			<artifactId>it-splitter-holidaymanager-storage</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+	
 </project>
