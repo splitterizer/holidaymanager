@@ -9,4 +9,7 @@ module it.splitter.holidaymanager.presentation {
 	requires spring.boot.autoconfigure;
 	requires spring.context;
 	requires spring.core;
+	
+	opens it.splitter.holidaymanager.presentation to spring.core, spring.beans, spring.context;
+	opens it.splitter.holidaymanager.presentation.configuration to spring.core, spring.beans, spring.context;
 }
