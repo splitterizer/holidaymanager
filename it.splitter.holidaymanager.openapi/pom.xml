@@ -23,16 +23,10 @@
 			<artifactId>jackson-databind-nullable</artifactId>
 			<version>0.2.1</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-core -->
-		<dependency>
-			<groupId>io.swagger.core.v3</groupId>
-			<artifactId>swagger-core</artifactId>
-			<version>2.2.6</version>
-		</dependency>
 		<dependency>
 			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.6.12</version>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.0.0-RC1</version>
 		</dependency>
 	</dependencies>
 
@@ -41,6 +35,7 @@
 			<plugin>
 				<groupId>org.openapitools</groupId>
 				<artifactId>openapi-generator-maven-plugin</artifactId>
+				<version>6.2.1</version>
 				<executions>
 					<execution>
 						<goals>
@@ -58,9 +53,7 @@
 							<dateLibrary>java8</dateLibrary>
 							<useBeanValidation>false</useBeanValidation>
 							<interfaceOnly>true</interfaceOnly>
-							<configOptions>
-								<delegatePattern>false</delegatePattern>
-							</configOptions>
+							<templateDirectory>${project.basedir}/src/main/resources/templates</templateDirectory>
 						</configuration>
 					</execution>
 				</executions>
