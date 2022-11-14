@@ -4,4 +4,5 @@ module it.splitter.holidaymanager.common {
 	requires lombok;
 	requires org.slf4j;
 	requires spring.context;
+	requires spring.core;
 }
