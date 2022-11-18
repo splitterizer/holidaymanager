@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>it.splitter</groupId>
+		<artifactId>holiday-service</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>holiday-container</artifactId>
+
+	<dependencies>
+		<dependency>
+			<groupId>it.splitter</groupId>
+			<artifactId>holiday-domain-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>it.splitter</groupId>
+			<artifactId>holiday-application-service</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>it.splitter</groupId>
+			<artifactId>holiday-application</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>it.splitter</groupId>
+			<artifactId>holiday-dataaccess</artifactId>
+		</dependency>
+	</dependencies>
+</project>

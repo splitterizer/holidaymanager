@@ -7,13 +7,14 @@
 		<version>3.0.0-RC2</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>it.splitter.holidaymanager</groupId>
-	<artifactId>it-splitter-holidaymanager</artifactId>
+	<groupId>it.splitter</groupId>
+	<artifactId>splitterizer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>it-splitter-holidaymanager</name>
+	<name>splitterizer</name>
 	<description>RestApi for holiday management</description>
 	<packaging>pom</packaging>
 	<properties>
+		<maven-compiler-plugin-version>3.10.1</maven-compiler-plugin-version>
 		<java.version>17</java.version>
 		<org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
 	</properties>
@@ -25,6 +26,31 @@
 				<groupId>org.mapstruct</groupId>
 				<artifactId>mapstruct</artifactId>
 				<version>${org.mapstruct.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>it.splitter</groupId>
+				<artifactId>holiday-domain-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>it.splitter</groupId>
+				<artifactId>holiday-application-service</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>it.splitter</groupId>
+				<artifactId>holiday-application</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>it.splitter</groupId>
+				<artifactId>holiday-dataaccess</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>it.splitter</groupId>
+				<artifactId>common-domain</artifactId>
+				<version>${project.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -56,7 +82,9 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin-version}</version>
 					<configuration>
+						<release>${java.version}</release>
 						<annotationProcessorPaths>
 							<path>
 								<groupId>org.mapstruct</groupId>
@@ -105,12 +133,14 @@
 	</pluginRepositories>
 
 	<modules>
-		<module>it.splitter.holidaymanager.presentation</module>
+		<!-- <module>it.splitter.holidaymanager.presentation</module>
 		<module>it.splitter.holidaymanager.business</module>
 		<module>it.splitter.holidaymanager.service</module>
 		<module>it.splitter.holidaymanager.storage</module>
 		<module>it.splitter.holidaymanager.datamodel</module>
 		<module>it.splitter.holidaymanager.common</module>
-		<module>it.splitter.holidaymanager.openapi</module>
+		<module>it.splitter.holidaymanager.openapi</module> -->
+		<module>holiday-service</module>
+		<module>common</module>
 	</modules>
 </project>
