@@ -29,7 +29,9 @@ public class Payment extends BaseEntity<PaymentId>{
 		return price;
 	}
 	
-	
+	public static Builder builder() {
+		return new Builder();
+	}
 	
 	public static class Builder {
 		private PaymentId paymentId;
