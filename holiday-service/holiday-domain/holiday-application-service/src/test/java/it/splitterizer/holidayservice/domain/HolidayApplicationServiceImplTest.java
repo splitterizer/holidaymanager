@@ -19,10 +19,13 @@ import it.splitter.domain.valueobject.Money;
 import it.splitterizer.holidayservice.domain.command.HolidayCommand;
 import it.splitterizer.holidayservice.domain.command.HolidayCommandFactory;
 import it.splitterizer.holidayservice.domain.command.HolidayInvoker;
-import it.splitterizer.holidayservice.domain.dto.create.HolidayRequest;
-import it.splitterizer.holidayservice.domain.dto.create.HolidayResponse;
-import it.splitterizer.holidayservice.domain.dto.create.Payment;
-import it.splitterizer.holidayservice.domain.dto.create.Person;
+import it.splitterizer.holidayservice.domain.command.HolidayTrackCommand;
+import it.splitterizer.holidayservice.domain.dto.HolidayCreateRequest;
+import it.splitterizer.holidayservice.domain.dto.HolidayCreateResponse;
+import it.splitterizer.holidayservice.domain.dto.HolidayTrackRequest;
+import it.splitterizer.holidayservice.domain.dto.HolidayTrackResponse;
+import it.splitterizer.holidayservice.domain.dto.Payment;
+import it.splitterizer.holidayservice.domain.dto.Person;
 import it.splitterizer.holidayservice.domain.entity.Holiday;
 import it.splitterizer.holidayservice.domain.mapper.HolidayDataMapper;
 import it.splitterizer.holidayservice.domain.ports.output.repository.HolidayRepository;
@@ -46,11 +49,11 @@ public class HolidayApplicationServiceImplTest {
 		applicationServiceImpl = new HolidayApplicationServiceImpl(commandFactory, holidayInvoker);
 	}
 
-	@DisplayName("create command: on create holiday call create command once")
+	@DisplayName("createHoliday: call create command once")
 	@Test
-	void createCmdshouldCallCreateCommandOnce() {
+	void createHolidayShouldCallCreateCommandOnce() {
 		Holiday holiday = createHoliday();
-		HolidayRequest holidayRequest = createHolidayRequest();
+		HolidayCreateRequest holidayRequest = createHolidayRequest();
 		HolidayCommand command = mock(HolidayCommand.class);
 		when(holidayRepository.save(any())).thenReturn(holiday);
 		when(commandFactory.createCommand(HolidayCommandFactory.CREATE, holidayRequest)).thenReturn(command);
@@ -58,11 +61,11 @@ public class HolidayApplicationServiceImplTest {
 		verify(commandFactory).createCommand(HolidayCommandFactory.CREATE, holidayRequest);
 	}
 
-	@DisplayName("create command: should call invoke once")
+	@DisplayName("createHoliday: should call invoke once")
 	@Test
-	void createCmdshouldCallInvokeOnce() {
+	void createHolidayShouldCallInvokeOnce() {
 		Holiday holiday = createHoliday();
-		HolidayRequest holidayRequest = createHolidayRequest();
+		HolidayCreateRequest holidayRequest = createHolidayRequest();
 		HolidayCommand command = mock(HolidayCommand.class);
 		when(holidayRepository.save(any())).thenReturn(holiday);
 		when(commandFactory.createCommand(HolidayCommandFactory.CREATE, holidayRequest)).thenReturn(command);
@@ -70,20 +73,63 @@ public class HolidayApplicationServiceImplTest {
 		verify(holidayInvoker).invoke(command);
 	}
 	
-	@DisplayName("create command: should return HolidayResponse")
+	@DisplayName("createHoliday: should return HolidayResponse")
 	@Test
-	void createCmdShouldReturnHolidayResponse() {
-		HolidayRequest holidayRequest = createHolidayRequest();
-		HolidayResponse expectedResponse = createResponse();
-		when(holidayInvoker.invoke(any())).thenReturn(createResponse());
-		HolidayResponse response = applicationServiceImpl.createHoliday(holidayRequest);
+	void createHolidayShouldReturnHolidayResponse() {
+		HolidayCreateRequest holidayRequest = createHolidayRequest();
+		HolidayCreateResponse expectedResponse = createCreateResponse();
+		when(holidayInvoker.invoke(any())).thenReturn(createCreateResponse());
+		HolidayCreateResponse response = applicationServiceImpl.createHoliday(holidayRequest);
 		assertEquals(expectedResponse.getHolidayTrackingId(), response.getHolidayTrackingId());
 	}
 	
+	@DisplayName("trackHoliday: call create command once")
+	@Test
+	void trackHolidayShouldCallCreateCommandOnce() {
+		Holiday holiday = createHoliday();
+		HolidayTrackRequest request = createHolidayTrackRequest();
+		HolidayCommand command = mock(HolidayTrackCommand.class);
+		when(commandFactory.createCommand(HolidayCommandFactory.TRACK, request)).thenReturn(command);
+		applicationServiceImpl.trackHoliday(request);
+		verify(commandFactory).createCommand(HolidayCommandFactory.TRACK, request);
+	}
 	
+	@DisplayName("trackHoliday: should call invoke once")
+	@Test
+	void trackHolidayShouldCallInvokeOnce() {
+		Holiday holiday = createHoliday();
+		HolidayTrackRequest request = createHolidayTrackRequest();
+		HolidayCommand command = mock(HolidayCommand.class);
+		when(holidayRepository.save(any())).thenReturn(holiday);
+		when(commandFactory.createCommand(HolidayCommandFactory.TRACK, request)).thenReturn(command);
+		applicationServiceImpl.trackHoliday(request);
+		verify(holidayInvoker).invoke(command);
+	}
 	
-	private HolidayResponse createResponse() {
-		return HolidayResponse.builder()
+	@DisplayName("trackHoliday: should return HolidayTrackResponse")
+	@Test
+	void trackHolidayShouldReturnHolidayResponse() {
+		HolidayTrackRequest request = createHolidayTrackRequest();
+		HolidayTrackResponse expectedResponse = createTrackResponse();
+		when(holidayInvoker.invoke(any())).thenReturn(createTrackResponse());
+		HolidayTrackResponse response = applicationServiceImpl.trackHoliday(request);
+		assertEquals(expectedResponse.getHolidayTrackingId(), response.getHolidayTrackingId());
+	}
+	
+	private HolidayTrackRequest createHolidayTrackRequest() {
+		return HolidayTrackRequest.builder()
+				.holidayTrackingId(UUID.nameUUIDFromBytes(HOLIDAY_TRACKING_ID_STR.getBytes()))
+				.build();
+	}
+
+	private HolidayCreateResponse createCreateResponse() {
+		return HolidayCreateResponse.builder()
+				.holidayTrackingId(UUID.nameUUIDFromBytes(HOLIDAY_TRACKING_ID_STR.getBytes()))
+				.build();
+	}
+	
+	private HolidayTrackResponse createTrackResponse() {
+		return HolidayTrackResponse.builder()
 				.holidayTrackingId(UUID.nameUUIDFromBytes(HOLIDAY_TRACKING_ID_STR.getBytes()))
 				.build();
 	}
@@ -95,8 +141,8 @@ public class HolidayApplicationServiceImplTest {
 				.build();
 	}
 
-	private HolidayRequest createHolidayRequest() {
-		return HolidayRequest.builder()
+	private HolidayCreateRequest createHolidayRequest() {
+		return HolidayCreateRequest.builder()
 				.people(List.of(Person.builder()
 						.holidayId(UUID.nameUUIDFromBytes("value".getBytes()))
 						.name("personName")

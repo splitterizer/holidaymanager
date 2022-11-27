@@ -2,20 +2,21 @@ package it.splitterizer.holidayservice.domain.command;
 
 import java.util.Optional;
 
-import it.splitterizer.holidayservice.domain.dto.create.HolidayResponse;
-import it.splitterizer.holidayservice.domain.dto.create.HolidayTrackRequest;
+import it.splitterizer.holidayservice.domain.dto.HolidayCreateResponse;
+import it.splitterizer.holidayservice.domain.dto.HolidayTrackRequest;
+import it.splitterizer.holidayservice.domain.dto.HolidayTrackResponse;
 import it.splitterizer.holidayservice.domain.entity.Holiday;
 import it.splitterizer.holidayservice.domain.mapper.HolidayDataMapper;
 import it.splitterizer.holidayservice.domain.ports.output.repository.HolidayRepository;
 import it.splitterizer.holidayservice.domain.valueobject.TrackingId;
 
-public class HolidayTrackCommand extends HolidayCommand {
+public class HolidayTrackCommand extends HolidayCommand<HolidayTrackResponse> {
 
 	private final HolidayRepository holidayRepository;
 	private final HolidayDataMapper holidayDataMapper;
 	private final HolidayTrackRequest holidayTrackRequest;
 	
-	private HolidayTrackCommand(HolidayRepository holidayRepository, 
+	public HolidayTrackCommand(HolidayRepository holidayRepository, 
 			HolidayDataMapper holidayDataMapper, HolidayTrackRequest holidayTrackRequest) {
 		this.holidayRepository = holidayRepository;
 		this.holidayDataMapper = holidayDataMapper;
@@ -23,7 +24,7 @@ public class HolidayTrackCommand extends HolidayCommand {
 	}
 
 	@Override
-	protected HolidayResponse execute() {
+	protected HolidayTrackResponse execute() {
 		Optional<Holiday> optHoliday = holidayRepository.findByTrackingId(
 				new TrackingId(holidayTrackRequest.getHolidayTrackingId()));
 
@@ -31,7 +32,7 @@ public class HolidayTrackCommand extends HolidayCommand {
 				() -> new IllegalArgumentException("Unable to find holiday with id %s"
 						.formatted(holidayTrackRequest.getHolidayTrackingId())));
 		
-		return holidayDataMapper.toHolidayResponse(holiday);
+		return holidayDataMapper.toHolidayTrackResponse(holiday);
 	}
 
 }

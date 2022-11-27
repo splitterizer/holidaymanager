@@ -1,4 +1,4 @@
-package it.splitterizer.holidayservice.domain.dto.create;
+package it.splitterizer.holidayservice.domain.dto;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 @Builder
-public class HolidayRequest implements Request{
+public class HolidayCreateRequest implements Request{
 	@NotNull
 	private final List<Person> people;
 	@NotNull

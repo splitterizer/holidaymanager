@@ -1,4 +1,4 @@
-package it.splitterizer.holidayservice.domain.dto.create;
+package it.splitterizer.holidayservice.domain.dto;
 
 import it.splitter.domain.valueobject.Money;
 import jakarta.validation.constraints.NotNull;

@@ -1,4 +1,4 @@
-package it.splitterizer.holidayservice.domain.dto.track;
+package it.splitterizer.holidayservice.domain.dto;
 
 import java.util.UUID;
 
@@ -8,9 +8,9 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@Builder
 @AllArgsConstructor
-public class TrackHolidayQuery {
+@Builder
+public class HolidayTrackRequest implements Request {
 	@NotNull
-	private final UUID holidayTrackingId;
+	private UUID holidayTrackingId;
 }

@@ -1,4 +1,4 @@
-package it.splitterizer.holidayservice.domain.dto.create;
+package it.splitterizer.holidayservice.domain.dto;
 
 import java.util.UUID;
 
@@ -8,9 +8,11 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
 @Builder
-public class HolidayTrackRequest implements Request {
+@AllArgsConstructor
+public class Person {
 	@NotNull
-	private UUID holidayTrackingId;
+	private UUID holidayId;
+	@NotNull
+	private String name;
 }

@@ -1,22 +1,22 @@
 package it.splitterizer.holidayservice.domain.command;
 
-import it.splitterizer.holidayservice.domain.dto.create.HolidayRequest;
-import it.splitterizer.holidayservice.domain.dto.create.HolidayResponse;
+import it.splitterizer.holidayservice.domain.dto.HolidayCreateRequest;
+import it.splitterizer.holidayservice.domain.dto.HolidayCreateResponse;
 import it.splitterizer.holidayservice.domain.entity.Holiday;
 import it.splitterizer.holidayservice.domain.mapper.HolidayDataMapper;
 import it.splitterizer.holidayservice.domain.ports.output.repository.HolidayRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-class HolidayCreateCommand extends HolidayCommand{
+class HolidayCreateCommand extends HolidayCommand<HolidayCreateResponse>{
 
 	private final HolidayRepository holidayRepository;
 	private final HolidayDataMapper holidayDataMapper;
-	private final HolidayRequest holidayRequest;
+	private final HolidayCreateRequest holidayRequest;
 	
 	public HolidayCreateCommand(HolidayRepository holidayRepository, 
 			HolidayDataMapper holidayDataMapper,
-			HolidayRequest holidayRequest) {
+			HolidayCreateRequest holidayRequest) {
 		super();
 		this.holidayRepository = holidayRepository;
 		this.holidayDataMapper = holidayDataMapper;
@@ -24,7 +24,7 @@ class HolidayCreateCommand extends HolidayCommand{
 	}
 
 	@Override
-	protected HolidayResponse execute() {
+	protected HolidayCreateResponse execute() {
 		Holiday holiday = holidayDataMapper.toHoliday(holidayRequest);
 		holiday = holidayRepository.save(holiday);
 		log.info("Holiday is created with id: {}", holiday.getId().getValue());

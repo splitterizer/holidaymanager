@@ -1,4 +1,4 @@
-package it.splitterizer.holidayservice.domain.dto.create;
+package it.splitterizer.holidayservice.domain.dto;
 
 import java.util.UUID;
 
@@ -10,7 +10,7 @@ import lombok.Getter;
 @Getter
 @Builder
 @AllArgsConstructor
-public class HolidayResponse {
+public class HolidayCreateResponse {
 	@NotNull
 	private final UUID holidayTrackingId;
 	@NotNull
