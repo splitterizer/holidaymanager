@@ -9,7 +9,7 @@ import it.splitterizer.holidayservice.domain.mapper.HolidayDataMapper;
 import it.splitterizer.holidayservice.domain.ports.output.repository.HolidayRepository;
 import it.splitterizer.holidayservice.domain.command.HolidayTrackCommand;
 
-public enum FactoryRecord {
+enum FactoryRecord {
 
 	CREATE_HOLIDAY {
 
