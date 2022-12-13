@@ -7,6 +7,18 @@ public record Money(BigDecimal amount) {
 	
 	public static final Money ZERO = new Money(BigDecimal.ZERO);
 	
+	public static Money make(double value) {
+		if (value < 0F) {
+			throw new IllegalArgumentException("money cannot have negative value");
+		}
+		
+		return new Money(setScale(new BigDecimal(value)));
+	}
+	
+	public Money(BigDecimal amount) {
+		this.amount = setScale(amount);
+	}
+	
 	public boolean isGreaterThanZero() {
 		return amount != null && amount.compareTo(BigDecimal.ZERO) > 0;
 	}
@@ -36,7 +48,7 @@ public record Money(BigDecimal amount) {
 		}
 	}
 	
-	private BigDecimal setScale(BigDecimal input) {
+	private static BigDecimal setScale(BigDecimal input) {
 		return input.setScale(2, RoundingMode.HALF_EVEN);
 	}
 }
