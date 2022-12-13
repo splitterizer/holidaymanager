@@ -1,12 +1,10 @@
 package it.splitterizer.holidayservice.domain.valueobject;
 
-import java.util.UUID;
-
 import it.splitter.domain.valueobject.BaseId;
 
-public class PaymentId extends BaseId<UUID>{
+public class PaymentId extends BaseId<Integer>{
 
-	public PaymentId(UUID uuid) {
+	public PaymentId(int uuid) {
 		super(uuid);
 	}
 }

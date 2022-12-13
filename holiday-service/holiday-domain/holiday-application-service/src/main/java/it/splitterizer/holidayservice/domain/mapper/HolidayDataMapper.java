@@ -1,17 +1,17 @@
 package it.splitterizer.holidayservice.domain.mapper;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import it.splitter.domain.valueobject.HolidayId;
 import it.splitterizer.holidayservice.domain.dto.HolidayCreateRequest;
 import it.splitterizer.holidayservice.domain.dto.HolidayCreateResponse;
 import it.splitterizer.holidayservice.domain.dto.HolidayTrackResponse;
 import it.splitterizer.holidayservice.domain.entity.Holiday;
 import it.splitterizer.holidayservice.domain.entity.Payment;
-import it.splitterizer.holidayservice.domain.entity.Person;
+import it.splitterizer.holidayservice.domain.valueobject.Person;
 
 @Component
 public class HolidayDataMapper {
@@ -47,25 +47,21 @@ public class HolidayDataMapper {
 				.collect(Collectors.toList());
 	}
 
-	private List<Person> toListOfPerson(
-			List<it.splitterizer.holidayservice.domain.dto.Person> peopleDTO) {
+	private Set<Person> toListOfPerson(
+			Set<it.splitterizer.holidayservice.domain.dto.Person> peopleDTO) {
 		return peopleDTO.stream().map(this::toPerson)
-				.collect(Collectors.toList());
+				.collect(Collectors.toSet());
 	}
 	
 	private Person toPerson(
 			it.splitterizer.holidayservice.domain.dto.Person personDTO) {
-		return Person.builder()
-				.withHolidayId(new HolidayId(personDTO.getHolidayId()))
-				.withName(personDTO.getName())
-				.build();
+		return new Person(personDTO.getName());
 	}
 
-	private List<it.splitterizer.holidayservice.domain.dto.Person> toListOfPersonDTO(List<Person> people) {
+	private List<it.splitterizer.holidayservice.domain.dto.Person> toListOfPersonDTO(Set<Person> people) {
 		return people.stream()
 				.map(p -> it.splitterizer.holidayservice.domain.dto.Person.builder()
-						.holidayId(p.getHolidayId().getValue())
-						.name(p.getName())
+						.name(p.name())
 						.build())
 				.collect(Collectors.toList());
 	}

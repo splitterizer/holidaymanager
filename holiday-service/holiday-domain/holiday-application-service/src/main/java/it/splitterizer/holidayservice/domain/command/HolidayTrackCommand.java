@@ -2,7 +2,6 @@ package it.splitterizer.holidayservice.domain.command;
 
 import java.util.Optional;
 
-import it.splitterizer.holidayservice.domain.dto.HolidayCreateResponse;
 import it.splitterizer.holidayservice.domain.dto.HolidayTrackRequest;
 import it.splitterizer.holidayservice.domain.dto.HolidayTrackResponse;
 import it.splitterizer.holidayservice.domain.entity.Holiday;
@@ -10,7 +9,7 @@ import it.splitterizer.holidayservice.domain.mapper.HolidayDataMapper;
 import it.splitterizer.holidayservice.domain.ports.output.repository.HolidayRepository;
 import it.splitterizer.holidayservice.domain.valueobject.TrackingId;
 
-public class HolidayTrackCommand extends HolidayCommand<HolidayTrackResponse> {
+class HolidayTrackCommand extends HolidayCommand<HolidayTrackResponse> {
 
 	private final HolidayRepository holidayRepository;
 	private final HolidayDataMapper holidayDataMapper;
