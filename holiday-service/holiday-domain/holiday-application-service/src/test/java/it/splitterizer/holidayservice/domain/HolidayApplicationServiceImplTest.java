@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +20,6 @@ import it.splitter.domain.valueobject.Money;
 import it.splitterizer.holidayservice.domain.command.HolidayCommand;
 import it.splitterizer.holidayservice.domain.command.HolidayCommandFactory;
 import it.splitterizer.holidayservice.domain.command.HolidayInvoker;
-import it.splitterizer.holidayservice.domain.command.HolidayTrackCommand;
 import it.splitterizer.holidayservice.domain.dto.HolidayCreateRequest;
 import it.splitterizer.holidayservice.domain.dto.HolidayCreateResponse;
 import it.splitterizer.holidayservice.domain.dto.HolidayTrackRequest;
@@ -88,7 +88,7 @@ public class HolidayApplicationServiceImplTest {
 	void trackHolidayShouldCallCreateCommandOnce() {
 		Holiday holiday = createHoliday();
 		HolidayTrackRequest request = createHolidayTrackRequest();
-		HolidayCommand command = mock(HolidayTrackCommand.class);
+		HolidayCommand command = mock(HolidayCommand.class);
 		when(commandFactory.createCommand(HolidayCommandFactory.TRACK, request)).thenReturn(command);
 		applicationServiceImpl.trackHoliday(request);
 		verify(commandFactory).createCommand(HolidayCommandFactory.TRACK, request);
@@ -143,8 +143,7 @@ public class HolidayApplicationServiceImplTest {
 
 	private HolidayCreateRequest createHolidayRequest() {
 		return HolidayCreateRequest.builder()
-				.people(List.of(Person.builder()
-						.holidayId(UUID.nameUUIDFromBytes("value".getBytes()))
+				.people(Set.of(Person.builder()
 						.name("personName")
 						.build()))
 				.payments(List.of(Payment.builder()
@@ -152,7 +151,6 @@ public class HolidayApplicationServiceImplTest {
 						.price(new Money(new BigDecimal(10)))
 						.person(Person
 								.builder()
-								.holidayId(UUID.nameUUIDFromBytes("value".getBytes()))
 								.name("name")
 								.build())
 						.build()))
